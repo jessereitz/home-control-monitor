@@ -1,4 +1,4 @@
-const { exec } = requre('child_process');
+const { exec } = require('child_process');
 const express = require('express');
 const bodyParser = require('body-parser');
 
