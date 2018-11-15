@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "sqlite3": "^4.0.4"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
