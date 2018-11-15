@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const { exec } = require('child_process');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,7 +14,7 @@ const key = 1234;
 function authenticationError(res) {
   res.send({
     status: 'error',
-    msg: 'Authentication error.'
+    msg: 'Authentication error.',
   });
   return null;
 }
@@ -39,6 +41,7 @@ app.post('/shutdown', (req, res) => {
     }
     res.send(returnObj);
   });
+  return null;
 });
 
 /**
@@ -62,7 +65,8 @@ app.post('/restart', (req, res) => {
       returnObj.msg = 'Reboot scheduled one minute from now.';
     }
     res.send(returnObj);
-  })
-})
+  });
+  return null;
+});
 
 app.listen(port);
