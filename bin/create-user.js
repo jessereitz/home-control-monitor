@@ -1,30 +1,67 @@
 #! /usr/bin/env node
 
-/** ************************
- *     Create Database     *
- ************************ */
+/* *********************
+ *     Create User     *
+ ******************** */
 
 /**
-* This script creates the user database for Home Control.
+* This script creates a new Home Control user.
+*
+* Note: This only creates a user in the main database, not on the client
+*   machines. This user will be able to view the status of the servers but
+*   will NOT be able to restart or shut them down.
 */
+
 const path = require('path');
-const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3');
+const bcrypt = require('bcrypt');
+const chalk = require('chalk');
+const prompts = require('prompts');
+
+const error = chalk.bold.red;
+const success = chalk.bold.green;
 
 const dbPath = path.join(__dirname, '..', 'hc-info.db');
 
-const db = new sqlite3.Database(dbPath);
+function addUser(userInfo) {
+  const db = new sqlite3.Database(dbPath);
+  const stmt = db.prepare('INSERT INTO users (NAME, USERNAME, PASSWORD) VALUES (?, ?, ?);');
 
-console.log('\nCreating Home Control database...');
+  const { name } = userInfo;
+  const un = String(userInfo.username).toLowerCase();
+  bcrypt.hash(userInfo.password, 12)
+    .then((hashed) => {
+      stmt.run(name, un, hashed, (err) => {
+        if (err) {
+          console.error(error('Uh oh... We were unable to create your account. See stack trace below: '));
+          console.error(err);
+        } else {
+          console.log(success('Hooray! Your account has been created successfully!\n'));
+        }
+      });
+    });
+}
 
-db.run(`CREATE TABLE IF NOT EXISTS users(
-  ID INTEGER PRIMARY KEY AUTOINCREMENT,
-  NAME TEXT NOT NULL,
-  USERNAME TEXT NOT NULL,
-  PASSWORD TEXT NOT NULL
-)`, (err) => {
-  if (!err) console.log('Database successfully created!');
-  else {
-    console.log('Something went wrong. Database has NOT been created...');
-    console.log(err);
-  }
-});
+const questions = [
+  {
+    type: 'text',
+    name: 'name',
+    message: 'What is your full name?',
+  },
+  {
+    type: 'text',
+    name: 'username',
+    message: 'What would you like your username to be?',
+  },
+  {
+    type: 'password',
+    name: 'password',
+    message: 'What do you want for a password?',
+  },
+];
+
+prompts(questions)
+  .then((response) => {
+    console.log('\nPerfect. Give us a moment while we get that user set up for you!');
+    addUser(response);
+  });

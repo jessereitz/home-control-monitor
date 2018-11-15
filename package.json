@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "create-db": "./bin/create-db.js",
+    "create-user": "./bin/create-user.js",
+    "initialize": "npm run create-db && npm run create-user"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "prompts": "^1.2.0",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
