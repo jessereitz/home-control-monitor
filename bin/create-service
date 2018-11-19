@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+echo "Creating Home Control Monitor service..."
 cp ./home-control-monitor.service /etc/systemd/system/
 systemctl enable home-control-monitor
 systemctl start home-control-monitor
+echo "Success. Home Control Monitor should have been added as a service to your machine."
+echo "Check its status with $ systemctl status home-control"
