@@ -1,0 +1,12 @@
+[Unit]
+Description=Receiver for Home-Control
+
+[Service]
+ExecStart=/usr/local/bin/home-control-monitor/index.js  # Home Control Monitor doesn't HAVE to be located here but it's a pretty good spot to keep it.
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=Home-Control-Monitor
+
+[Install]
+WantedBy=multi-user.target
