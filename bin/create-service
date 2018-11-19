@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+cp ./home-control-monitor.service /etc/systemd/system/
+systemctl enable home-control-monitor
+systemctl start home-control-monitor

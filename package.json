@@ -6,7 +6,7 @@
   "scripts": {
     "create-db": "./bin/create-db.js",
     "create-user": "./bin/create-user.js",
-    "initialize": "./bin/welcome.js && npm run create-db && npm run create-user"
+    "initialize": "./bin/welcome.js && npm run create-db && npm run create-user && ./bin/create-service"
   },
   "author": "",
   "license": "ISC",
