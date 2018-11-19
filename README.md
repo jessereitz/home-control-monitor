@@ -11,8 +11,13 @@ for more information.
 ## Installation
 
 For now, Home Control Monitor must be installed manually. This will hopefully
-be updated to use Linux Snaps in the near future. For now, though, follow these
-steps:
+be updated to be available as a Linux Snap in the near future.
+
+Before you get started, you will need sqlite3 installed, if you don't already
+have it. If you're on a Debian/Ubuntu system, simply run
+`$ sudo apt install sqlite3`.
+
+Once you have that taken care of, follow these steps:
 
 1. Download the Home Control Monitor source files via a git clone or grab the
 latest release here on the repo. For the easiest installation, I recommend
@@ -23,7 +28,12 @@ unit file will expect. You can change this if you wish, just be sure to edit the
     $ sudo git clone https://github.com/jessereitz/home-control-monitor.git /usr/local/bin
 ```
 
-2. Run the initialization script from the home-control-monitor directory. This
+2. Install dependencies via npm from the home-control-monitor directory.
+```shell
+    $ npm install
+```
+
+3. Run the initialization script from the home-control-monitor directory. This
 will walk you through creating a user database (see below) and a user account
 and will copy the service unit file to `/etc/systemd/system` and enable/start
 the service. (This must be done as sudo in order to copy the `.service` file
@@ -32,7 +42,7 @@ into `etc/systemd/system` and enable/start the service)
     $ sudo npm run initialize
 ```
 
-3. You should be all set to go! If you would like to add another user or if you
+4. You should be all set to go! If you would like to add another user or if you
 forget your username/password, simply run the create-user script:
 ```shell
   $ npm run create-user
