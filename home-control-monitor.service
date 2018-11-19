@@ -1,7 +1,9 @@
 [Unit]
-Description=Receiver for Home-Control
+Description=Home Control Monitor - The local receiver for Home Control
+After=network.target
 
 [Service]
+Type=simple
 ExecStart=/usr/local/bin/home-control-monitor/index.js  # Home Control Monitor doesn't HAVE to be located here but it's a pretty good spot to keep it.
 Restart=always
 StandardOutput=syslog
