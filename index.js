@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3');
 const bcrypt = require('bcrypt');
 
-const port = 9980;
+const port = 9070;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -145,4 +145,4 @@ app.post('/restart', (req, res) => {
   return null;
 });
 
-app.listen(port);
+app.listen(port, () => console.log('Listening on port: ', port));
